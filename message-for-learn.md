@@ -4,18 +4,12 @@
 [rd-summer-practice-2021-fe-team3]:<https://epa.ms/rd-summer-practice-2021-fe-team3>
 [rd-summer-practice-2021-fe-team4]:<https://epa.ms/rd-summer-practice-2021-fe-team4>
 [rd-summer-practice-2021-fe-team5]:<https://epa.ms/rd-summer-practice-2021-fe-team5>
-
 [vido-course-git]:<https://www.youtube.com/playlist?list=PLIU76b8Cjem5B3sufBJ_KFTpKkMEvaTQR>
 [demo-course-git]:<https://learngitbranching.js.org/?demo=&locale=ru_RU>
 [bootstrap-grid-3]:<https://getbootstrap.com/docs/3.3/css/#grid>
 [bootstrap-grid-5]:<https://getbootstrap.com/docs/5.0/layout/grid/>
 [vscode-manual]:<https://www.youtube.com/watch?v=paA-leudslo>
-
-
 [git-fe--student-repo]:<https://epa.ms/rd-summer-practice-2021-fe-code>
-
-
----
 
 # Летняя практика 2021
 
@@ -42,9 +36,7 @@
 - 4 группа - Даниил Шапиро
 - 5 группа - Мария Сонина - [vk_id3448431](https://vk.com/id3448431)
 
-Ребята добавьте в свои чатики Тараса и своих наставников, чтобы можно было оперативно держать связь и вне занятия!!! 1я и 4я группа просто добавьте к себе Тараса
-
-По всем возникающим вопросам по поводу FrontEnd можно ниписать в своих чатиках Тарасу или своему наставнику
+По всем возникающим вопросам по поводу FrontEnd можно написать в своих чатиках Тарасу или своему наставнику
 
 ---
 
