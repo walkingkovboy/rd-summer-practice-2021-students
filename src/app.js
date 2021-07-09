@@ -1081,10 +1081,10 @@
                  */
                 return $(app.utils.t(
                     "<div id='player{playerId}' class='game-player game-player-status-{status}'>" +
-                        "<span class='game-player-name'>{name}</span>" +
-                        " [<span class='game-player-coins'>{coins}</span>;" +
-                        "<span class='game-player-lives'>{lives}</span>;" +
-                        "<span class='game-player-deaths'>{deaths}</span>]" +
+                        "<span class='team-players'>{name}</span>" +
+                        " [<span class='team-coins'>{coins}</span>;" +
+                        "<span class='team-lives'>{lives}</span>;" +
+                        "<span class='team-deaths'>{deaths}</span>]" +
                     "</div>", {
                     playerId: player.id,
                     status: status,
