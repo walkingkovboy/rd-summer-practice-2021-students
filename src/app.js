@@ -810,8 +810,8 @@
                  */
                 if(width <= 0 && height <= 0)
                     return;
-                $canvas.width = width;
-                $canvas.height = height;
+                $canvas.css.width = width;
+                $canvas.css.height = height;
                 return $canvas;
             }
             function drawMapField(canvas, map, width, height, cellSize) {
@@ -865,32 +865,73 @@
                  *              повешайте обработчики событий на кнопки
                  *              нажатия на кнопки это событие click
                  */
-                // var c = this.state.callbacks;
-                // c.captionChanged
-                // c.invalidGame
-                // c.mapChanged
-                // c.playerChanged
-                // c.statusChanged
-                // c.synced
-                // c.syncing
-                // c.teamCaptionChanged
-                // c.teamCoinsChanged
-                // c.teamLivesChanged
-                // c.teamPlayersChanged
-                // c.timerChanged
+                var c = this.state.callbacks;
+                c.captionChanged.add(function(name, status) {
+                    this.setGameCaption(name, status);
+                }.bind(this));
+                c.invalidGame.add(function() {
+                    this.showError();
+                }.bind(this));
+                c.mapChanged.add(function(map) {
+                    this.updateMap(map);
+                }.bind(this));
+                c.playerChanged.add(function() {
+                    this.updatePlayer(player);
+                }.bind(this));
+                c.statusChanged.add(function() {
+                    this.setButtons(status);
+                    this.toggleRotation(status);
+                }.bind(this));
+                c.synced.add(function() {
+                    this.show();
+                }.bind(this));
+                c.syncing.add(function() {
+                    this.showLoading();
+                }.bind(this));
+                c.teamCaptionChanged.add(function(team, $team) {
+                    this.setTeamCaption(team, $team);
+                }.bind(this));
+                c.teamCoinsChanged.add(function(data) {
+                    setTeamCoins(data.teamId, data.coins);
+                }.bind(this));
+                c.teamLivesChanged.add(function(data) {
+                    this.setTeamLives(data.teamId, data.lives)
+                }.bind(this));
+                c.teamPlayersChanged.add(function() {
+                    this.updateTeam(team);
+                }.bind(this));
+                c.timerChanged.add(function(data) {
+                    this.setTimer(data);
+                }.bind(this));
             };
             GameView.prototype.bindButtons = function () {
                 // TODO Task 3.1 повешайте обработчики событий
                 var btns = this.btns;
                 var $lastKey = -1;
-                btns.$btnGameList.addEve
-                btns.$btnStart.
-                btns.$btnConnect.
-                btns.$btnConnectPolice.
-                btns.$btnConnectThief.
-                btns.$btnLeave.
-                btns.$btnPause.
-                btns.$btnCancel.
+                btns.$btnGameList.click(function() {
+                    document.location.replace("index.html");
+                });
+                btns.$btnStart.click(function() {
+                    this.state.game.start();
+                });
+                btns.$btnConnect.click(function(){
+                    this.state.game.join(GameApi.GameTeamRole.random);
+                });
+                btns.$btnConnectPolice.click(function(){
+                    this.state.game.join(GameApi.GameTeamRole.police);
+                });
+                btns.$btnConnectThief.click(function(){
+                    this.state.game.join(GameApi.GameTeamRole.thief);
+                });
+                btns.$btnLeave.click(function(){
+                    this.state.game.leave();
+                });
+                btns.$btnPause.click(function(){
+                    this.state.game.pause();
+                });
+                btns.$btnCancel.click(function(){
+                    this.state.game.cancel();
+                });
                 $(window).on('keydown', function(event) {
                     if ($lastKey === event.keyCode) {
                         return;
