@@ -758,25 +758,25 @@
                  *  можно использовать $('selector')
                  */
                 return {
-                    // $gameCaption: ,
-                    // $switchTimer: ,
-                    // team1: {
-                    //     $container: ,
-                    //     $caption: ,
-                    //     $players: ,
-                    //     $lives: ,
-                    //     $coins:
-                    // },
-                    // team2: {
-                    //     $container: ,
-                    //     $caption: ,
-                    //     $players: ,
-                    //     $lives: ,
-                    //     $coins:
-                    // },
-                    // mapBuffer: null,
-                    // $mapCanvas: ,
-                    // mapCellSize: 25
+                    $gameCaption: $('#game-caption'),
+                    $switchTimer: $('#switch-timer'),
+                    team1: {
+                        $container: $('#left-team'),
+                        $caption: $('$left-team > .team-header > span'),
+                        $players: $('$left-team > .team-players'),
+                        $lives: $('$left-team > .team-lives'),
+                        $coins: $('$left-team > .team-coins')
+                    },
+                    team2: {
+                        $container: $('#right-team'),
+                        $caption: $('$right-team > .team-header > span'),
+                        $players: $('$right-team > .team-players'),
+                        $lives: $('$right-team > .team-lives'),
+                        $coins: $('$right-team > .team-coins')
+                    },
+                    mapBuffer: null,
+                    $mapCanvas: $('#map-canvas'),
+                    mapCellSize: 25
                 };
             }
             function getButtons() {

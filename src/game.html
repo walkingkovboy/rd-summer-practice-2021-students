@@ -13,38 +13,47 @@
 <body>
 <!-- TODO: Task 0. Построить вёрстку приложения по макету используя для сетки bootstrap -->
 <div class="wrapper">
+    <section class="header-section">
+        <div id="game-caption">
+
+        </div>
+    </section>
     <section class="game-section">
         <div class="progress-area">
             <div class="progress-bar">
 
             </div>
-            <div class="countdown">
+            <div class="countdown" id="switch-timer">
                 <span>00:00</span>
             </div>
         </div>
         <div class="game-area">
-            <div class="left-team team-area">
+            <div class="left-team team-area" id="left-team">
                 <div class="team-header">
                     <span>Команда №1</span>
                 </div>
                 <div class="team-info">
                     <ul class="info-list">
-                        <li><span>Жизни: </span> <span class="info-value">0</span></li>
-                        <li><span>Монеты: </span> <span class="info-value">0</span></li>
+                        <li class="team-players"><span>Игроки: </span> <span class="info-value">0</span></li>
+                        <li class="team-lives"><span>Жизни: </span> <span class="info-value">0</span></li>
+                        <li class="team-coins"><span>Монеты: </span> <span class="info-value">0</span></li>
                     </ul>
                 </div>
             </div>
             <div class="game-map">
+                <canvas id="map-canvas">
 
+                </canvas>
             </div>
-            <div class="right-team team-area">
+            <div class="right-team team-area" id="rigth-team">
                 <div class="team-header">
                     <span>Команда №2</span>
                 </div>
                 <div class="team-info">
                     <ul class="info-list">
-                        <li><span>Жизни: </span> <span class="info-value">0</span></li>
-                        <li><span>Монеты: </span> <span class="info-value">0</span></li>
+                        <li class="team-players"><span>Игроки: </span> <span class="info-value">0</span></li>
+                        <li class="team-lives"><span>Жизни: </span> <span class="info-value">0</span></li>
+                        <li class="team-coins"><span>Монеты: </span> <span class="info-value">0</span></li>
                     </ul>
                 </div>
             </div>
