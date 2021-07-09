@@ -795,19 +795,23 @@
             function getImages() {
                 // TODO Task1.3 Объявление переменных и их связка с DOM
                 return {
-                    // imgHeart: ,
-                    // imgCoin: ,
-                    // imgPolice: ,
-                    // imgPoliceSelf: ,
-                    // imgThief: ,
-                    // imgThiefSelf: ,
-                    // imgSwitch:
+                    imgHeart: document.getElementById('img_heart'),
+                    imgCoin: document.getElementById('img_coin'),
+                    imgPolice: document.getElementById('img_police'),
+                    imgPoliceSelf: document.getElementById('img_police_self'),
+                    imgThief: document.getElementById('img_thief'),
+                    imgThiefSelf: document.getElementById('img_thief_self'),
+                    imgSwitch: document.getElementById('img_switch')
                 };
             }
             function setMapCanvasSizing($canvas, width, height) {
                 /**
                  * TODO Task 2. Опишите функцию которая задаст размеры игрового поля
                  */
+                if(width <= 0 && height <= 0)
+                    return;
+                $canvas.width = width;
+                $canvas.height = height;
                 return $canvas;
             }
             function drawMapField(canvas, map, width, height, cellSize) {
@@ -877,41 +881,39 @@
             };
             GameView.prototype.bindButtons = function () {
                 // TODO Task 3.1 повешайте обработчики событий
-                // var btns = this.btns;
-                // var $lastKey = -1;
-                // btns.$btnGameList.
-                // btns.$btnStart.
-                // btns.$btnConnect.
-                // btns.$btnConnectPolice.
-                // btns.$btnConnectThief.
-                // btns.$btnLeave.
-                // btns.$btnPause.
-                // btns.$btnCancel.
+                var btns = this.btns;
+                var $lastKey = -1;
+                btns.$btnGameList.addEve
+                btns.$btnStart.
+                btns.$btnConnect.
+                btns.$btnConnectPolice.
+                btns.$btnConnectThief.
+                btns.$btnLeave.
+                btns.$btnPause.
+                btns.$btnCancel.
                 $(window).on('keydown', function(event) {
                     if ($lastKey === event.keyCode) {
                         return;
                     }
-                    /**
-                     * TODO Task 4. Вместо event.keyCode начните использовать event.key
-                     */
-                    switch (event.keyCode) {
-                        case 32:
+                    // TODO Task 4. Вместо event.keyCode начните использовать event.key
+                    switch (event.key) {
+                        case " ":
                             event.preventDefault();
                             this.state.game.stopMoving();
                             break;
-                        case 37:
+                        case 'ArrowLeft':
                             event.preventDefault();
                             this.state.game.beginMove(GameApi.MoveDirection.left);
                             break;
-                        case 38:
+                        case 'ArrowUp':
                             event.preventDefault();
                             this.state.game.beginMove(GameApi.MoveDirection.top);
                             break;
-                        case 39:
+                        case 'ArrowRight':
                             event.preventDefault();
                             this.state.game.beginMove(GameApi.MoveDirection.right);
                             break;
-                        case 40:
+                        case 'ArrowDown':
                             event.preventDefault();
                             this.state.game.beginMove(GameApi.MoveDirection.bottom);
                             break;
