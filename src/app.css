@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style-type: none;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #b8b8b8;
+}
+.wrapper {
+    width: 100%;
+    background-color: #2c2c2c;
+}
+.game-section {
+    padding: 0 5%;
+}
+.progress-area {
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.progress-bar {
+    height: 20px;
+    width: 100%;
+    background-color: #e76767;
+    border-radius: 5px;
+}
+.countdown {
+    margin-top: 15px;
+    font-size: 40px;
+}
+.game-area {
+    display: flex;
+    justify-content: space-between;
+}
+.left-team {
+}
+.team-area {
+    padding: 5px 10px;
+    background-color: #454545;
+    height: fit-content;
+    border-radius: 5px;
+    border: 1px solid #fff;
+}
+.team-header {
+    text-decoration: underline;
+    margin-bottom: 5px;
+}
+.team-info {
+}
+.info-list {
+}
+.info-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.info-value {
+    background-color: #e76767;
+    padding: 5px;
+    color: #2c2c2c;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.game-map {
+    margin: 0 25px;
+    width: 70%;
+    height: 500px;
+    background-color: #e76767;
+}
+.right-team {
+}
+.manage-section {
+    padding: 50px 5%;
+}
+.game-manage-area {
+    width: fit-content;
+    margin: 0 auto;
+}
+.manage-list {
+    display: flex;
+    text-decoration: none;
+}
+.manage-list li {
+    margin: 2px;
+}
+.manage-btn {
+    padding: 5px 10px;
+    background-color: #2c2c2c;
+    border: 2px solid #fff;
+    border-radius: 5px;
+}
+.manage-btn:hover {
+    cursor: pointer;
+    border-color: #e76767;
+}
+#game-stop-button {
+    border-color: #951815;
+    color: #e1120f;
+}
+#game-stop-button:hover {
+    background-color: #fff;
+}

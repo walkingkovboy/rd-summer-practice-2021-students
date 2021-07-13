@@ -758,56 +758,60 @@
                  *  можно использовать $('selector')
                  */
                 return {
-                    // $gameCaption: ,
-                    // $switchTimer: ,
-                    // team1: {
-                    //     $container: ,
-                    //     $caption: ,
-                    //     $players: ,
-                    //     $lives: ,
-                    //     $coins:
-                    // },
-                    // team2: {
-                    //     $container: ,
-                    //     $caption: ,
-                    //     $players: ,
-                    //     $lives: ,
-                    //     $coins:
-                    // },
-                    // mapBuffer: null,
-                    // $mapCanvas: ,
-                    // mapCellSize: 25
+                    $gameCaption: $('#game-caption'),
+                    $switchTimer: $('#switch-timer'),
+                    team1: {
+                        $container: $('#left-team'),
+                        $caption: $('$left-team > .team-header > span'),
+                        $players: $('$left-team > .team-players'),
+                        $lives: $('$left-team > .team-lives'),
+                        $coins: $('$left-team > .team-coins')
+                    },
+                    team2: {
+                        $container: $('#right-team'),
+                        $caption: $('$right-team > .team-header > span'),
+                        $players: $('$right-team > .team-players'),
+                        $lives: $('$right-team > .team-lives'),
+                        $coins: $('$right-team > .team-coins')
+                    },
+                    mapBuffer: null,
+                    $mapCanvas: $('#map-canvas'),
+                    mapCellSize: 25
                 };
             }
             function getButtons() {
                 // TODO Task1.2 Объявление переменных и их связка с DOM
                 return {
-                    // $btnGameList:,
-                    // $btnStart:,
-                    // $btnConnect:,
-                    // $btnConnectPolice:,
-                    // $btnConnectThief:,
-                    // $btnLeave:,
-                    // $btnPause:,
-                    // $btnCancel:
+                    $btnGameList: $('#game-list-button'),
+                    $btnStart: $('#game-start-button'),
+                    $btnConnect: $('#game-connect-button'),
+                    $btnConnectPolice: $('#game-police-button'),
+                    $btnConnectThief: $('#game-thief-button'),
+                    $btnLeave: $('#game-leave-button'),
+                    $btnPause: $('#game-pause-button'),
+                    $btnCancel: $('#game-cancel-button')
                 };
             }
             function getImages() {
                 // TODO Task1.3 Объявление переменных и их связка с DOM
                 return {
-                    // imgHeart: ,
-                    // imgCoin: ,
-                    // imgPolice: ,
-                    // imgPoliceSelf: ,
-                    // imgThief: ,
-                    // imgThiefSelf: ,
-                    // imgSwitch:
+                    imgHeart: document.getElementById('img_heart'),
+                    imgCoin: document.getElementById('img_coin'),
+                    imgPolice: document.getElementById('img_police'),
+                    imgPoliceSelf: document.getElementById('img_police_self'),
+                    imgThief: document.getElementById('img_thief'),
+                    imgThiefSelf: document.getElementById('img_thief_self'),
+                    imgSwitch: document.getElementById('img_switch')
                 };
             }
             function setMapCanvasSizing($canvas, width, height) {
                 /**
                  * TODO Task 2. Опишите функцию которая задаст размеры игрового поля
                  */
+                if(width <= 0 && height <= 0)
+                    return;
+                $canvas.css.width = width;
+                $canvas.css.height = height;
                 return $canvas;
             }
             function drawMapField(canvas, map, width, height, cellSize) {
@@ -861,57 +865,96 @@
                  *              повешайте обработчики событий на кнопки
                  *              нажатия на кнопки это событие click
                  */
-                // var c = this.state.callbacks;
-                // c.captionChanged
-                // c.invalidGame
-                // c.mapChanged
-                // c.playerChanged
-                // c.statusChanged
-                // c.synced
-                // c.syncing
-                // c.teamCaptionChanged
-                // c.teamCoinsChanged
-                // c.teamLivesChanged
-                // c.teamPlayersChanged
-                // c.timerChanged
+                var c = this.state.callbacks;
+                c.captionChanged.add(function(name, status) {
+                    this.setGameCaption(name, status);
+                }.bind(this));
+                c.invalidGame.add(function() {
+                    this.showError();
+                }.bind(this));
+                c.mapChanged.add(function(map) {
+                    this.updateMap(map);
+                }.bind(this));
+                c.playerChanged.add(function() {
+                    this.updatePlayer(player);
+                }.bind(this));
+                c.statusChanged.add(function() {
+                    this.setButtons(status);
+                    this.toggleRotation(status);
+                }.bind(this));
+                c.synced.add(function() {
+                    this.show();
+                }.bind(this));
+                c.syncing.add(function() {
+                    this.showLoading();
+                }.bind(this));
+                c.teamCaptionChanged.add(function(team, $team) {
+                    this.setTeamCaption(team, $team);
+                }.bind(this));
+                c.teamCoinsChanged.add(function(data) {
+                    setTeamCoins(data.teamId, data.coins);
+                }.bind(this));
+                c.teamLivesChanged.add(function(data) {
+                    this.setTeamLives(data.teamId, data.lives)
+                }.bind(this));
+                c.teamPlayersChanged.add(function() {
+                    this.updateTeam(team);
+                }.bind(this));
+                c.timerChanged.add(function(data) {
+                    this.setTimer(data);
+                }.bind(this));
             };
             GameView.prototype.bindButtons = function () {
                 // TODO Task 3.1 повешайте обработчики событий
-                // var btns = this.btns;
-                // var $lastKey = -1;
-                // btns.$btnGameList.
-                // btns.$btnStart.
-                // btns.$btnConnect.
-                // btns.$btnConnectPolice.
-                // btns.$btnConnectThief.
-                // btns.$btnLeave.
-                // btns.$btnPause.
-                // btns.$btnCancel.
+                var btns = this.btns;
+                var $lastKey = -1;
+                btns.$btnGameList.click(function() {
+                    document.location.replace("index.html");
+                });
+                btns.$btnStart.click(function() {
+                    this.state.game.start();
+                });
+                btns.$btnConnect.click(function(){
+                    this.state.game.join(GameApi.GameTeamRole.random);
+                });
+                btns.$btnConnectPolice.click(function(){
+                    this.state.game.join(GameApi.GameTeamRole.police);
+                });
+                btns.$btnConnectThief.click(function(){
+                    this.state.game.join(GameApi.GameTeamRole.thief);
+                });
+                btns.$btnLeave.click(function(){
+                    this.state.game.leave();
+                });
+                btns.$btnPause.click(function(){
+                    this.state.game.pause();
+                });
+                btns.$btnCancel.click(function(){
+                    this.state.game.cancel();
+                });
                 $(window).on('keydown', function(event) {
                     if ($lastKey === event.keyCode) {
                         return;
                     }
-                    /**
-                     * TODO Task 4. Вместо event.keyCode начните использовать event.key
-                     */
-                    switch (event.keyCode) {
-                        case 32:
+                    // TODO Task 4. Вместо event.keyCode начните использовать event.key
+                    switch (event.key) {
+                        case " ":
                             event.preventDefault();
                             this.state.game.stopMoving();
                             break;
-                        case 37:
+                        case 'ArrowLeft':
                             event.preventDefault();
                             this.state.game.beginMove(GameApi.MoveDirection.left);
                             break;
-                        case 38:
+                        case 'ArrowUp':
                             event.preventDefault();
                             this.state.game.beginMove(GameApi.MoveDirection.top);
                             break;
-                        case 39:
+                        case 'ArrowRight':
                             event.preventDefault();
                             this.state.game.beginMove(GameApi.MoveDirection.right);
                             break;
-                        case 40:
+                        case 'ArrowDown':
                             event.preventDefault();
                             this.state.game.beginMove(GameApi.MoveDirection.bottom);
                             break;
@@ -1038,10 +1081,10 @@
                  */
                 return $(app.utils.t(
                     "<div id='player{playerId}' class='game-player game-player-status-{status}'>" +
-                        "<span class='game-player-name'>{name}</span>" +
-                        " [<span class='game-player-coins'>{coins}</span>;" +
-                        "<span class='game-player-lives'>{lives}</span>;" +
-                        "<span class='game-player-deaths'>{deaths}</span>]" +
+                        "<span class='team-players'>{name}</span>" +
+                        " [<span class='team-coins'>{coins}</span>;" +
+                        "<span class='team-lives'>{lives}</span>;" +
+                        "<span class='team-deaths'>{deaths}</span>]" +
                     "</div>", {
                     playerId: player.id,
                     status: status,
@@ -1075,7 +1118,7 @@
                 $team.$caption
                     .empty()
                     .append(app.utils.t(
-                        "<div class='game-team-{role}-caption'>" +
+                        "<div class='game-team-{role}-caption team-header'>" +
                             "<span class='game-team-name'>{name}</span> " +
                             "<span class='game-team-role game-team-role-{role}'>{roleName}</span>" +
                         "</div>", {
@@ -1124,21 +1167,115 @@
                  *    this.state.getPlayer(currentUserId) - пользователь в игре?
                  *    this.btns - кнопки тут
                  */
+                 status = status || this.state.status;
+                 var btns = this.btns;
+                 if (status === GameApi.GameStatus.canceled || status === GameApi.GameStatus.finished) {
+                     btns.$btnStart.addClass("hidden");
+                     btns.$btnLeave.addClass("hidden");
+                     btns.$btnPause.addClass("hidden");
+                     btns.$btnCancel.addClass("hidden");
+                     btns.$btnConnect.addClass("hidden");
+                     btns.$btnConnectThief.addClass("hidden");
+                     btns.$btnConnectPolice.addClass("hidden");
+                     return;
+                 }
+                 var currentUser = this.state.gameApi.questor.user.id;
+                 var isOwner = currentUser === this.state.owner.id;
+                 var isAdmin = this.state.gameApi.questor.user.isAdmin;
+                 var connected = this.state.getPlayer(currentUser) ? true : false;
+ 
+                 if (this.state.status === GameApi.GameStatus.open ||
+                     this.state.status === GameApi.GameStatus.ready) {
+                     btns.$btnPause.addClass("hidden");
+                     if (isOwner) {
+                         btns.$btnStart.removeClass("hidden");
+                         btns.$btnCancel.removeClass("hidden");
+                     }
+                     else {
+                         btns.$btnStart.addClass("hidden");
+                         if (isAdmin) {
+                             btns.$btnCancel.removeClass("hidden");
+                         } else {
+                             btns.$btnCancel.addClass("hidden");
+                         }
+                     }
+                     if (connected) {
+                         btns.$btnLeave.removeClass("hidden");
+                         btns.$btnConnect.addClass("hidden");
+                         btns.$btnConnectThief.addClass("hidden");
+                         btns.$btnConnectPolice.addClass("hidden");
+                     }
+                     else {
+                         btns.$btnLeave.addClass("hidden");
+                         btns.$btnConnect.removeClass("hidden");
+                         btns.$btnConnectThief.removeClass("hidden");
+                         btns.$btnConnectPolice.removeClass("hidden");
+                     }
+                     return;
+                 }
+                 if (this.state.status === GameApi.GameStatus.starting ||
+                     this.state.status === GameApi.GameStatus.inProcess) {
+                     btns.$btnStart.addClass("hidden");
+                     btns.$btnLeave.addClass("hidden");
+                     btns.$btnConnect.addClass("hidden");
+                     btns.$btnConnectThief.addClass("hidden");
+                     btns.$btnConnectPolice.addClass("hidden");
+                     if (isOwner) {
+                         btns.$btnPause.removeClass("hidden");
+                         btns.$btnCancel.removeClass("hidden");
+                     }
+                     else {
+                         btns.$btnPause.addClass("hidden");
+                         if (isAdmin) {
+                             btns.$btnCancel.removeClass("hidden");
+                         } else {
+                             btns.$btnCancel.addClass("hidden");
+                         }
+                     }
+                 }
+                 else {
+                     if (isOwner) {
+                         btns.$btnStart.removeClass("hidden");
+                         btns.$btnCancel.removeClass("hidden");
+                     }
+                     else {
+                         btns.$btnStart.addClass("hidden");
+                         if (isAdmin) {
+                             btns.$btnCancel.removeClass("hidden");
+                         } else {
+                             btns.$btnCancel.addClass("hidden");
+                         }
+                     }
+                     btns.$btnPause.addClass("hidden");
+                     btns.$btnLeave.addClass("hidden");
+                     btns.$btnConnect.addClass("hidden");
+                     btns.$btnConnectThief.addClass("hidden");
+                     btns.$btnConnectPolice.addClass("hidden");
+                 }
             };
             GameView.prototype.showLoading = function () {
                 /**
                  * TODO: Task 9. Опишите доступность элементов при загрузке игры $container $error $loading
                  */
+                 this.$container.addClass("hidden");
+                 this.$error.addClass("hidden");
+                 this.$loading.removeClass("hidden");
             };
             GameView.prototype.showError = function () {
                 /**
                  * TODO: Task 10. Опишите доступность элементов при загрузке игры $container $error $loading
                  */
+                this.$container.addClass("hidden");
+                this.$loading.addClass("hidden");
+                this.$error.removeClass("hidden");
             };
             GameView.prototype.show = function () {
                 /**
                  * TODO: Task 11. Опишите доступность элементов при загрузке игры $container $error $loading
                  */
+                this.$loading.addClass("hidden");
+                this.$error.addClass("hidden");
+                this.$container.removeClass("hidden");
             };
 
             return GameView;

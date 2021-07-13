@@ -4,14 +4,81 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="app.css" />
     <!--  TODO: Раскомментировать при начале работы с сервером -->
-<!--    <script src="modernizr.js"></script>-->
-<!--    <script src="/js/jquery.js"></script>-->
-<!--    <script src="/js/jquery.signalR.js"></script>-->
-<!--    <script src="/js/gameApi.js"></script>-->
+    <script src="modernizr.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/jquery.signalR.js"></script>
+    <script src="/js/gameApi.js"></script>
     <title>Игра - Полицейские и Мошенники</title>
 </head>
 <body>
 <!-- TODO: Task 0. Построить вёрстку приложения по макету используя для сетки bootstrap -->
+<div class="wrapper">
+    <section class="header-section">
+        <div class="game-caption-name">
+
+        </div>
+        <div class="game-caption-status game-caption-status-{status}">
+
+        </div>
+    </section>
+    <section class="game-section">
+        <div class="progress-area">
+            <div class="progress-bar">
+
+            </div>
+            <div class="countdown" id="switch-timer">
+                <span>00:00</span>
+            </div>
+        </div>
+        <div class="game-area">
+            <div class="left-team team-area" id="left-team">
+                <div class="team-header">
+                    <span>Команда №1</span>
+                </div>
+                <div class="team-info">
+                    <ul class="info-list">
+                        <li class="team-players"><span>Игроки: </span> <span class="info-value">0</span></li>
+                        <li class="team-lives"><span>Жизни: </span> <span class="info-value">0</span></li>
+                        <li class="team-coins"><span>Монеты: </span> <span class="info-value">0</span></li>
+                        <li class="team-deaths"><span>Смерти: </span> <span class="info-value">0</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="game-map">
+                <canvas id="map-canvas">
+
+                </canvas>
+            </div>
+            <div class="right-team team-area" id="rigth-team">
+                <div class="team-header">
+                    <span>Команда №2</span>
+                </div>
+                <div class="team-info">
+                    <ul class="info-list">
+                        <li class="team-players"><span>Игроки: </span> <span class="info-value">0</span></li>
+                        <li class="team-lives"><span>Жизни: </span> <span class="info-value">0</span></li>
+                        <li class="team-coins"><span>Монеты: </span> <span class="info-value">0</span></li>
+                        <li class="team-deaths"><span>Смерти: </span> <span class="info-value">0</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="manage-section">
+        <div class="game-manage-area">
+            <ul class="manage-list">
+                <li><button class="manage-btn" id="game-list-button">К списку игр</button></li>
+                <li><button class="manage-btn" id="game-start-button">Начать игру</button></li>
+                <li><button class="manage-btn" id="game-connect-button">Подключиться к игре (случайно)</button></li>
+                <li><button class="manage-btn" id="game-police-button">Поключиться к полиции</button></li>
+                <li><button class="manage-btn" id="game-thief-button">Подключиться к мошенникам</button></li>
+                <li><button class="manage-btn" id="game-leave-button">Покинуть игру</button></li>
+                <li><button class="manage-btn" id="game-pause-button">Пауза</button></li>
+                <li><button class="manage-btn" id="game-cancel-button">Прервать игру</button></li>
+            </ul>
+        </div>
+    </section>
+</div>
 <div class="hidden">
     <img id="img_heart"
          src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJzdmdfaGVhcnQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9
@@ -87,19 +154,18 @@ B5Mj0iMjEiIC8+CjxsaW5lIHgxPSIyMiIgeTE9IjE3IiB4Mj0iMTgiIHkyPSIyMSIgLz4KPC9nP
 go8L3N2Zz4="/>
 </div>
 <!--  TODO: Раскомментировать при начале работы с сервером -->
-<!--<script src="app.js"></script>-->
-<!--<script>-->
-<!--    (function() {-->
-<!--        var gameApi = new GameApi();-->
-<!--        gameApi.questor.on("unauthorized", function () {-->
-<!--            window.location.replace("../login");-->
-<!--        });-->
-<!--        gameApi.questor.login();-->
-<!--        var gameState = new app.game.GameState(gameApi);-->
-<!--        new app.game.GameView($("#game"), $("#loading"), $("#loadError"), gameState);-->
-<!--        gameState.request();-->
-<!--    })();-->
-
-<!--</script>-->
+<script src="app.js"></script>
+<script>
+    (function() {
+        var gameApi = new GameApi();
+        gameApi.questor.on("unauthorized", function () {
+            window.location.replace("../login");
+        });
+        gameApi.questor.login();
+        var gameState = new app.game.GameState(gameApi);
+        new app.game.GameView($("#game"), $("#loading"), $("#loadError"), gameState);
+        gameState.request();
+    })();
+</script>
 </body>
 </html>
