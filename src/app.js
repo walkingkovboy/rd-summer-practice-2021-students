@@ -1118,7 +1118,7 @@
                 $team.$caption
                     .empty()
                     .append(app.utils.t(
-                        "<div class='game-team-{role}-caption'>" +
+                        "<div class='game-team-{role}-caption team-header'>" +
                             "<span class='game-team-name'>{name}</span> " +
                             "<span class='game-team-role game-team-role-{role}'>{roleName}</span>" +
                         "</div>", {
@@ -1257,16 +1257,25 @@
                 /**
                  * TODO: Task 9. Опишите доступность элементов при загрузке игры $container $error $loading
                  */
+                 this.$container.addClass("hidden");
+                 this.$error.addClass("hidden");
+                 this.$loading.removeClass("hidden");
             };
             GameView.prototype.showError = function () {
                 /**
                  * TODO: Task 10. Опишите доступность элементов при загрузке игры $container $error $loading
                  */
+                this.$container.addClass("hidden");
+                this.$loading.addClass("hidden");
+                this.$error.removeClass("hidden");
             };
             GameView.prototype.show = function () {
                 /**
                  * TODO: Task 11. Опишите доступность элементов при загрузке игры $container $error $loading
                  */
+                this.$loading.addClass("hidden");
+                this.$error.addClass("hidden");
+                this.$container.removeClass("hidden");
             };
 
             return GameView;
